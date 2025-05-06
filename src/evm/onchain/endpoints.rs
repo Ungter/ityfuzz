@@ -55,6 +55,7 @@ pub enum Chain {
     SCROLL,
     VANA,
     STORY,
+    SONIC
 }
 
 pub trait PriceOracle: Debug {
@@ -91,6 +92,7 @@ impl FromStr for Chain {
             "scroll" => Ok(Self::SCROLL),
             "vana" => Ok(Self::VANA),
             "story" => Ok(Self::STORY),
+            "sonic" => Ok(Self:SONIC),
             _ => Err(()),
         }
     }
@@ -159,6 +161,7 @@ impl Chain {
             1480 => Self::VANA,
             1514 => Self::STORY,
             31337 => Self::LOCAL,
+            146 => Self::SONIC,
             _ => return Err(anyhow!("Unknown chain id: {}", chain_id)),
         })
     }
@@ -188,6 +191,7 @@ impl Chain {
             Chain::VANA => 1480,
             Chain::STORY => 1514,
             Chain::LOCAL => 31337,
+            Chain::SONIC => 146,
         }
     }
 
@@ -216,6 +220,7 @@ impl Chain {
             Chain::SCROLL => "scroll",
             Chain::VANA => "vana",
             Chain::STORY => "story",
+            Chain::SONIC => "sonic",
         }
         .to_string()
     }
@@ -248,6 +253,7 @@ impl Chain {
             Chain::VANA => "https://rpc.vana.org",
             Chain::STORY => "https://mainnet.storyrpc.io",
             Chain::LOCAL => "http://localhost:8545",
+            Chain::SONIC => "https://rpc.soniclabs.com",
         }
         .to_string()
     }
@@ -277,6 +283,7 @@ impl Chain {
             Chain::SCROLL => "https://api.scrollscan.com/api",
             Chain::VANA => "https://api.vanascan.io/api/v2",
             Chain::STORY => "https://www.storyscan.xyz/api/v2",
+            Chain::SONIC => "https://rpc.soniclabs.com",
         }
         .to_string()
     }
@@ -503,6 +510,17 @@ impl ChainConfig for OnChainConfig {
             .map(|(k, v)| (k.to_string(), v.to_string()))
             .collect(),
 
+            "sonic" => [
+                ("USDC.e", "0x29219dd400f2Bf60E5a23d13Be72B486D4038894"),
+                ("wS", "0x039e2fB66102314Ce7b64Ce5Ce3E5183bc94aD38"),
+                ("stS", "0xE5DA20F15420aD15DE0fa650600aFc998bbE3955"),
+                ("WETH", "0x50c42dEAcD8Fc9773493ED674b675bE577f2634b"),
+                ("scUSD", "0xd3DCe716f3eF535C5Ff8d041c1A41C3bd89b97aE"),
+            ]
+            .iter()
+            .map(|(k, v)| (k.to_string(), v.to_string()))
+            .collect(),
+                
             "local" => [("ZERO", "0x0000000000000000000000000000000000000000")]
                 .iter()
                 .map(|(k, v)| (k.to_string(), v.to_string()))
