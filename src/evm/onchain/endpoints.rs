@@ -92,7 +92,7 @@ impl FromStr for Chain {
             "scroll" => Ok(Self::SCROLL),
             "vana" => Ok(Self::VANA),
             "story" => Ok(Self::STORY),
-            "sonic" => Ok(Self:SONIC),
+            "sonic" => Ok(Self::SONIC),
             _ => Err(()),
         }
     }
